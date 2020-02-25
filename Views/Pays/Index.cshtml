@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TutoAspNetCoreMvc.Models.Pays>
+
+    <p>
+        <a class="btn btn-info btn-xs" onclick="detailModal('/Pays/Create/','#DetailModal')" data-toggle="modal" data-target="#DetailModal">New</a>
+        @*<a asp-action="Create">Create New</a>*@
+    </p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomPays)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomPays)
+            </td>
+            <td>
+                <a class="btn btn-warning btn-xs" onclick="detailModal('/Pays/Edit/' + @item.IdPays,'#DetailModal')" data-toggle="modal" data-target="#DetailModal">Modifier</a> |
+                @*<a asp-action="Edit" asp-route-id="@item.IdPays">Edit</a> |*@
+                <a class="btn btn-info btn-xs" onclick="detailModal('/Pays/Details/' + @item.IdPays,'#DetailModal')" data-toggle="modal" data-target="#DetailModal">Détail</a>|
+
+                @*<a asp-action="Details" asp-route-id="@item.IdPays">Details</a> |*@
+
+                <a class="btn btn-danger btn-xs" onclick="detailModal('/Pays/Delete/' + @item.IdPays,'#DetailModal')" data-toggle="modal" data-target="#DetailModal">Supprimer</a>|
+                @*<a asp-action="Delete" asp-route-id="@item.IdPays">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="modal fade col-md-12" id="DetailModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="title" class="modal-title text-center">@ViewData["Info"]</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="fas fa-times"></span>
+                </button>
+            </div>
+            <div class="modal-body" id="DetailModalDiv">
+            </div>
+            <div class="modal-footer"> </div>
+        </div>
+    </div>
+</div>
+<script>
+
+   function detailModal(lien, vue) {
+    var vuemodaldiv = vue + 'Div';
+	
+    $(vuemodaldiv).load(lien, function () {
+        $(vue).modal("show");
+    });
+}
+
+</script>
+
